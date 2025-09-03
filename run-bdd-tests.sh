@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Start the server in the background and log output
-npm run dev -- -p 0 &> server.log &
+kill -9 $(lsof -t -i:3010) || true
+
+npm run dev > server.log 2>&1 &
 SERVER_PID=$!
 
 # Kill the server on exit
