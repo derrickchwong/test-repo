@@ -36,7 +36,6 @@ Then('I should see a "Find Owner" button', async function () {
 });
 
 When('I search for an owner with the last name {string}', async function (lastName) {
-  console.log('lastName', lastName);
   const response = await fetch(`${baseUrl}/api/owners?lastName=${lastName.replace(/"/g, '')}`);
   this.response = response;
 });
