@@ -1,12 +1,26 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import assert from 'assert';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const port = process.env.BDD_PORT || 3000;
 const baseUrl = `http://localhost:${port}`;
 
 Given('the following owners exist in the system:', async function (dataTable) {
-  // This step is a no-op because the data is already in the test database.
-  // We can enhance this later to dynamically seed data if needed.
+  const owners = dataTable.hashes();
+  for (const owner of owners) {
+    await prisma.owner.create({
+      data: {
+        id: parseInt(owner.id),
+        firstName: owner.firstName.replace(/"/g, ''),
+        lastName: owner.lastName.replace(/"/g, ''),
+        address: owner.address.replace(/"/g, ''),
+        city: owner.city.replace(/"/g, ''),
+        telephone: owner.telephone.replace(/"/g, ''),
+      },
+    });
+  }
 });
 
 When('I navigate to the "Find Owners" page', async function () {
