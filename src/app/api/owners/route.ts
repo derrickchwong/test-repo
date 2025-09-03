@@ -11,45 +11,16 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const ownerData = await req.json();
-  if (!ownerData['First Name']) {
-    return new NextResponse(JSON.stringify({ message: 'First name is required' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-  if (!ownerData['Last Name']) {
-    return new NextResponse(JSON.stringify({ message: 'Last name is required' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-  if (!ownerData.Address) {
-    return new NextResponse(JSON.stringify({ message: 'Address is required' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-  if (!ownerData.City) {
-    return new NextResponse(JSON.stringify({ message: 'City is required' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-  if (!ownerData.Telephone) {
-    return new NextResponse(JSON.stringify({ message: 'Telephone is required' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const requiredFields = ['First Name', 'Last Name', 'Address', 'City', 'Telephone'];
+  for (const field of requiredFields) {
+    if (!ownerData[field]) {
+      return new NextResponse(JSON.stringify({ message: `${field} is required` }), {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
   }
   if (ownerData.Telephone && !/^[0-9]+$/.test(ownerData.Telephone)) {
     return new NextResponse(JSON.stringify({ message: 'Telephone must be a number' }), {
