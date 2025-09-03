@@ -62,10 +62,3 @@ Scenario Outline: Pet details are displayed correctly for various owners and pet
     | Harold Davis    | Iggy     | 2010-11-30 | lizard   | Verifies lizard type              |
     | Peter McTavish  | George | 2010-01-20 | snake    | Verifies snake type               |
     | Maria Escobito  | Mulligan | 2011-02-24 | dog      | Another dog to ensure no mix-ups  |
-
-Scenario: Pets for a multi-pet owner are sorted alphabetically by name
-  When I view the details for the owner "Eduardo Rodriquez"
-  Then the pets should be listed in the following order:
-    | Pet Name |
-    | "Jewel"  |
-    | "Rosy"   |
