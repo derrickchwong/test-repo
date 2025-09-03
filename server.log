@@ -1,0 +1,111 @@
+
+> modernized@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use by process 30486, using available port 3010 instead.
+   ▲ Next.js 15.5.2 (Turbopack)
+   - Local:        http://localhost:3010
+   - Network:      http://192.0.0.2:3010
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1077ms
+ ○ Compiling /api/owners ...
+ ✓ Compiled /api/owners in 1110ms
+ GET /api/owners?lastName=Franklin 200 in 1544ms
+ GET /api/owners?lastName=Franklin 200 in 254ms
+ GET /api/owners?lastName=Davis 200 in 255ms
+ GET /api/owners?lastName=Franklin 200 in 254ms
+ GET /api/owners?lastName=Davis 200 in 233ms
+ GET /api/owners?lastName=Franklin 200 in 242ms
+ GET /api/owners?lastName=Davis 200 in 237ms
+ GET /api/owners?lastName=Franklin 200 in 248ms
+ GET /api/owners?lastName=Davis 200 in 240ms
+ GET /api/owners 200 in 269ms
+ GET /api/owners?lastName=Franklin 200 in 254ms
+ GET /api/owners?lastName=Davis 200 in 238ms
+ GET /api/owners 200 in 236ms
+ GET /api/owners?lastName=UnknownSurname 200 in 229ms
+ GET /api/owners?lastName=Franklin 200 in 297ms
+ GET /api/owners?lastName=Davis 200 in 229ms
+ GET /api/owners 200 in 252ms
+ GET /api/owners?lastName=UnknownSurname 200 in 233ms
+ GET /api/owners?lastName=Franklin 200 in 255ms
+ GET /api/owners?lastName=Davis 200 in 248ms
+ GET /api/owners 200 in 251ms
+ GET /api/owners?lastName=UnknownSurname 200 in 233ms
+ GET /api/owners?lastName=Franklin 200 in 254ms
+ GET /api/owners?lastName=Davis 200 in 239ms
+ GET /api/owners 200 in 270ms
+ GET /api/owners?lastName=UnknownSurname 200 in 234ms
+ GET /api/owners?lastName=Franklin 200 in 236ms
+ GET /api/owners?lastName=Davis 200 in 243ms
+ GET /api/owners 200 in 248ms
+ GET /api/owners?lastName=UnknownSurname 200 in 224ms
+ GET /api/owners?lastName=Frank 200 in 234ms
+ GET /api/owners?lastName=Dav 200 in 235ms
+ GET /api/owners?lastName=Dav 200 in 252ms
+ GET /api/owners?lastName=Franklin 200 in 256ms
+ GET /api/owners?lastName=Davis 200 in 223ms
+ GET /api/owners 200 in 232ms
+ GET /api/owners?lastName=UnknownSurname 200 in 228ms
+ GET /api/owners?lastName=Frank 200 in 238ms
+ GET /api/owners?lastName=Dav 200 in 252ms
+ GET /api/owners?lastName=Dav 200 in 228ms
+ GET /api/owners?lastName=Franklin 200 in 276ms
+ GET /api/owners?lastName=Davis 200 in 276ms
+ GET /api/owners 200 in 240ms
+ GET /api/owners?lastName=UnknownSurname 200 in 227ms
+ GET /api/owners?lastName=Frank 200 in 224ms
+ GET /api/owners?lastName=Dav 200 in 234ms
+ GET /api/owners?lastName=Dav 200 in 250ms
+ GET /api/owners?lastName=Franklin 200 in 252ms
+ GET /api/owners?lastName=Davis 200 in 250ms
+ GET /api/owners 200 in 270ms
+ GET /api/owners?lastName=UnknownSurname 200 in 231ms
+ GET /api/owners?lastName=Frank 200 in 223ms
+ GET /api/owners?lastName=Dav 200 in 233ms
+ GET /api/owners?lastName=Dav 200 in 234ms
+ GET /api/owners?lastName=Franklin 200 in 288ms
+ GET /api/owners?lastName=Davis 200 in 236ms
+ GET /api/owners 200 in 232ms
+ GET /api/owners?lastName=UnknownSurname 200 in 230ms
+ GET /api/owners?lastName=Frank 200 in 229ms
+ GET /api/owners?lastName=Dav 200 in 227ms
+ GET /api/owners?lastName=Dav 200 in 237ms
+ GET /api/owners 200 in 228ms
+ GET /api/owners?lastName=Franklin 200 in 285ms
+ GET /api/owners?lastName=Davis 200 in 237ms
+ GET /api/owners 200 in 283ms
+ GET /api/owners?lastName=UnknownSurname 200 in 223ms
+ GET /api/owners?lastName=Frank 200 in 229ms
+ GET /api/owners?lastName=Dav 200 in 223ms
+ GET /api/owners?lastName=Dav 200 in 254ms
+ GET /api/owners 200 in 230ms
+ GET /api/owners?lastName=Franklin 200 in 240ms
+ GET /api/owners?lastName=Davis 200 in 290ms
+ GET /api/owners 200 in 265ms
+ GET /api/owners?lastName=UnknownSurname 200 in 228ms
+ GET /api/owners?lastName=Frank 200 in 263ms
+ GET /api/owners?lastName=Dav 200 in 231ms
+ GET /api/owners?lastName=Dav 200 in 234ms
+ GET /api/owners 200 in 235ms
+ GET /api/owners?lastName=Franklin 200 in 252ms
+ GET /api/owners?lastName=Davis 200 in 237ms
+ GET /api/owners 200 in 237ms
+ GET /api/owners?lastName=UnknownSurname 200 in 226ms
+ GET /api/owners?lastName=Frank 200 in 236ms
+ GET /api/owners?lastName=Dav 200 in 222ms
+ GET /api/owners?lastName=Dav 200 in 228ms
+ GET /api/owners 200 in 227ms
+ GET /api/owners 200 in 232ms
+ GET /api/owners?lastName=Franklin 200 in 282ms
+ GET /api/owners?lastName=Davis 200 in 287ms
+ GET /api/owners 200 in 245ms
+ GET /api/owners?lastName=UnknownSurname 200 in 294ms
+ GET /api/owners?lastName=Frank 200 in 226ms
+ GET /api/owners?lastName=Dav 200 in 243ms
+ GET /api/owners?lastName=Dav 200 in 240ms
+ GET /api/owners 200 in 231ms
+ GET /api/owners 200 in 223ms
+ GET /api/owners?page=2 200 in 221ms
