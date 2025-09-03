@@ -43,9 +43,29 @@ Then('the owner\'s details should be displayed as follows:', async function (dat
   assert.equal(owner.telephone, expectedDetails.Telephone);
 });
 
+
+
+
+
 When(/^I leave the (.*) field blank and fill in the rest of the owner form with valid information$/, async function (field: string) {
+  const ownerData: any = {
+    'First Name': 'George',
+    'Last Name': 'Franklin',
+    'Address': '110 W. Liberty St.',
+    'City': 'Madison',
+    'Telephone': '6085551023',
+  };
+  ownerData[field] = '';
 
-
+  response = await fetch(`${baseUrl}/api/owners`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(ownerData),
+  });
+  responseData = await response.json();
+});
 
 Then(/^I should see an error message indicating that the (.*) is required$/, async function (field: string) {
   assert.equal(response.status, 400);
