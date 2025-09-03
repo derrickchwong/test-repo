@@ -9,9 +9,25 @@ generator client {
 
 model Owner {
   id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
+  name      String
   address   String
   city      String
   telephone String
+  pets      Pet[]
+}
+
+model Pet {
+  id        Int      @id @default(autoincrement())
+  name      String
+  birthDate DateTime
+  type      PetType  @relation(fields: [typeId], references: [id])
+  typeId    Int
+  owner     Owner    @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+}
+
+model PetType {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  pets Pet[]
 }

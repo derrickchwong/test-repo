@@ -13,8 +13,7 @@ Given('the following owners exist in the system:', async function (dataTable) {
     await prisma.owner.create({
       data: {
         id: parseInt(owner.id),
-        firstName: owner.firstName.replace(/"/g, ''),
-        lastName: owner.lastName.replace(/"/g, ''),
+        name: `${owner.firstName.replace(/"/g, '')} ${owner.lastName.replace(/"/g, '')}`,
         address: owner.address.replace(/"/g, ''),
         city: owner.city.replace(/"/g, ''),
         telephone: owner.telephone.replace(/"/g, ''),
@@ -36,7 +35,7 @@ Then('I should see a "Find Owner" button', async function () {
 });
 
 When('I search for an owner with the last name {string}', async function (lastName) {
-  const response = await fetch(`${baseUrl}/api/owners?lastName=${lastName.replace(/"/g, '')}`);
+  const response = await fetch(`${baseUrl}/api/owners?name=${lastName.replace(/"/g, '')}`);
   this.response = response;
 });
 
@@ -44,14 +43,13 @@ Then('I should be redirected to the details page for {string}', async function (
   const owners = await this.response.json();
   assert.strictEqual(owners.length, 1, "Expected to find one owner");
   const owner = owners[0];
-  const actualName = `${owner.firstName} ${owner.lastName}`;
-  assert.strictEqual(actualName, expectedName, "Expected to be redirected to the correct owner's page");
+  assert.strictEqual(owner.name, expectedName, "Expected to be redirected to the correct owner's page");
 });
 
 Then('I should see a list of owners with the following names:', async function (dataTable) {
   const expectedNames = dataTable.rows().map((row: any) => row[0].replace(/"/g, ''));
   const owners = await this.response.json();
-  const actualNames = owners.map((owner: any) => `${owner.firstName} ${owner.lastName}`);
+  const actualNames = owners.map((owner: any) => owner.name);
   for (const expectedName of expectedNames) {
     assert(actualNames.includes(expectedName), `Expected to find owner '${expectedName}'`);
   }

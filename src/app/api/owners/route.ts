@@ -3,9 +3,9 @@ import { findOwners, createOwner } from '@/db/owners';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const lastName = searchParams.get('lastName') || '';
+  const name = searchParams.get('name') || '';
   const page = parseInt(searchParams.get('page') || '1');
-  const owners = await findOwners(lastName, page);
+  const owners = await findOwners(name, page);
   return NextResponse.json(owners);
 }
 
@@ -39,8 +39,7 @@ export async function POST(req: NextRequest) {
     });
   }
   const owner = {
-    firstName: ownerData['First Name'],
-    lastName: ownerData['Last Name'],
+    name: `${ownerData['First Name']} ${ownerData['Last Name']}`,
     address: ownerData.Address,
     city: ownerData.City,
     telephone: ownerData.Telephone,
@@ -54,3 +53,4 @@ export async function POST(req: NextRequest) {
     },
   });
 }
+

@@ -23,7 +23,7 @@ Scenario: User navigates to the find owners page
   Then I should see a "Find Owner" button
 
 Scenario: Find a single owner by last name
-  When I search for an owner with the last name "Franklin"
+  When I search for an owner with the last name "George Franklin"
   Then I should be redirected to the details page for "George Franklin"
 
 Scenario: Find multiple owners by last name
@@ -38,7 +38,7 @@ Scenario: Find all owners by providing no last name
   Then I should see a paginated list of all owners
 
 Scenario: Find an owner that does not exist
-  When I search for an owner with the last name "UnknownSurname"
+  When I search for an owner with the last name "UnknownName"
   Then I should see a "not found" message on the "Find Owners" page
 
 Scenario Outline: Search for owners with partial last names

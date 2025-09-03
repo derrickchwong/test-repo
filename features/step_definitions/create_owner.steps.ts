@@ -37,7 +37,7 @@ Then('the owner\'s details should be displayed as follows:', async function (dat
   const ownerResponse = await fetch(`${baseUrl}${response.headers.get('Location')}`);
   const owner = await ownerResponse.json();
 
-  assert.equal(`${owner.firstName} ${owner.lastName}`, expectedDetails.Name);
+  assert.equal(owner.name, expectedDetails.Name);
   assert.equal(owner.address, expectedDetails.Address);
   assert.equal(owner.city, expectedDetails.City);
   assert.equal(owner.telephone, expectedDetails.Telephone);
