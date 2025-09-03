@@ -6,7 +6,6 @@ export async function GET(req: NextRequest) {
   const lastName = searchParams.get('lastName') || '';
   const page = parseInt(searchParams.get('page') || '1');
   const owners = await findOwners(lastName, page);
-  console.log('owners', owners);
   return NextResponse.json(owners);
 }
 
