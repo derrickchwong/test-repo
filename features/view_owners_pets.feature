@@ -56,9 +56,16 @@ Scenario Outline: Pet details are displayed correctly for various owners and pet
   Then I should see a pet in the list with the name "<pet_name>", birth date "<birth_date>", and type "<pet_type>"
 
   Examples:
-    | owner_name          | pet_name   | birth_date | pet_type | notes                               |
-    | Betty Davis       | Basil    | 2012-08-06 | hamster  | Verifies hamster type             |
-    | Eduardo Rodriquez | Rosy     | 2011-04-17 | dog      | Verifies dog type                 |
-    | Harold Davis    | Iggy     | 2010-11-30 | lizard   | Verifies lizard type              |
-    | Peter McTavish  | George | 2010-01-20 | snake    | Verifies snake type               |
-    | Maria Escobito  | Mulligan | 2011-02-24 | dog      | Another dog to ensure no mix-ups  |
+    | owner_name          | pet_name   | birth_date | pet_type |
+    | Betty Davis       | Basil    | 2012-08-06 | hamster  |
+    | Eduardo Rodriquez | Rosy     | 2011-04-17 | dog      |
+    | Harold Davis      | Iggy     | 2010-11-30 | lizard   |
+    | Peter McTavish    | George   | 2010-01-20 | snake    |
+    | Maria Escobito    | Mulligan | 2011-02-24 | dog      |
+
+Scenario: Pets for a multi-pet owner are sorted alphabetically by name
+  When I view the details for the owner "Eduardo Rodriquez"
+  Then the pets should be listed in the following order:
+    | Pet Name |
+    | "Jewel"  |
+    | "Rosy"   |

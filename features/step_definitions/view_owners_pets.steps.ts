@@ -14,7 +14,7 @@ Given('the following pet types exist in the system:', async function (dataTable)
   for (const petType of petTypes) {
     await prisma.petType.create({
       data: {
-        name: petType.name,
+        name: petType.name.replace(/\"/g, ''),
       },
     });
   }
@@ -25,14 +25,14 @@ Given('the following owners and their pets are registered in the system:', async
   const ownersByName: { [name: string]: any } = {};
 
   for (const ownerData of ownersData) {
-    const ownerName = ownerData.owner_name.replace(/"/g, '');
+    const ownerName = ownerData.owner_name.replace(/\"/g, '');
     if (!ownersByName[ownerName]) {
       const newOwner = await prisma.owner.create({
         data: {
           name: ownerName,
-          address: ownerData.address.replace(/"/g, ''),
-          city: ownerData.city.replace(/"/g, ''),
-          telephone: ownerData.telephone.replace(/"/g, ''),
+          address: ownerData.address.replace(/\"/g, ''),
+          city: ownerData.city.replace(/\"/g, ''),
+          telephone: ownerData.telephone.replace(/\"/g, ''),
         },
       });
       ownersByName[ownerName] = newOwner;
@@ -41,14 +41,14 @@ Given('the following owners and their pets are registered in the system:', async
 
   for (const ownerData of ownersData) {
     if (ownerData.pet_name) {
-      const ownerName = ownerData.owner_name.replace(/"/g, '');
+      const ownerName = ownerData.owner_name.replace(/\"/g, '');
       const owner = ownersByName[ownerName];
-      const petType = await prisma.petType.findFirst({ where: { name: ownerData.pet_type.replace(/"/g, '') } });
+      const petType = await prisma.petType.findFirst({ where: { name: ownerData.pet_type.replace(/\"/g, '') } });
       if (petType) {
         await prisma.pet.create({
           data: {
-            name: ownerData.pet_name.replace(/"/g, ''),
-            birthDate: new Date(ownerData.birth_date.replace(/"/g, '')),
+            name: ownerData.pet_name.replace(/\"/g, ''),
+            birthDate: new Date(ownerData.birth_date.replace(/\"/g, '')),
             typeId: petType.id,
             ownerId: owner.id,
           },
@@ -59,7 +59,7 @@ Given('the following owners and their pets are registered in the system:', async
 });
 
 When('I view the details for the owner {string}', async function (ownerName) {
-  const ownerNameWithoutQuotes = ownerName.replace(/"/g, '');
+  const ownerNameWithoutQuotes = ownerName.replace(/\"/g, '');
   const anOwner = await prisma.owner.findFirst({ where: { name: ownerNameWithoutQuotes } });
   if (anOwner) {
     const response = await fetch(`${baseUrl}/api/owners/${anOwner.id}`);
@@ -78,19 +78,19 @@ When('I view the details for the owner {string}', async function (ownerName) {
 });
 
 Then('I should see the owner\'s name {string}', function (expectedName) {
-  assert.strictEqual(owner.name, expectedName.replace(/"/g, ''));
+  assert.strictEqual(owner.name, expectedName.replace(/\"/g, ''));
 });
 
 Then('I should see the owner\'s address {string}', function (expectedAddress) {
-  assert.strictEqual(owner.address, expectedAddress.replace(/"/g, ''));
+  assert.strictEqual(owner.address, expectedAddress.replace(/\"/g, ''));
 });
 
 Then('I should see the owner\'s city {string}', function (expectedCity) {
-  assert.strictEqual(owner.city, expectedCity.replace(/"/g, ''));
+  assert.strictEqual(owner.city, expectedCity.replace(/\"/g, ''));
 });
 
 Then('I should see the owner\'s telephone number {string}', function (expectedTelephone) {
-  assert.strictEqual(owner.telephone, expectedTelephone.replace(/"/g, ''));
+  assert.strictEqual(owner.telephone, expectedTelephone.replace(/\"/g, ''));
 });
 
 Then('I should see a list of pets containing exactly {int} entry', function (expectedCount) {
@@ -104,10 +104,10 @@ Then('I should see a list of pets containing exactly {int} entries', function (e
 Then('the pet list should contain the following details:', function (dataTable) {
   const expectedPets = dataTable.hashes();
   for (const expectedPet of expectedPets) {
-    const actualPet = pets.find(p => p.name === expectedPet.Name.replace(/"/g, ''));
+    const actualPet = pets.find(p => p.name === expectedPet.Name.replace(/\"/g, ''));
     assert.ok(actualPet, `Pet with name ${expectedPet.Name} not found`);
-    assert.strictEqual(new Date(actualPet.birthDate).toISOString().split('T')[0], new Date(expectedPet['Birth Date'].replace(/"/g, '')).toISOString().split('T')[0]);
-    assert.strictEqual(actualPet.type.name, expectedPet.Type.replace(/"/g, ''));
+    assert.strictEqual(new Date(actualPet.birthDate).toISOString().split('T')[0], new Date(expectedPet['Birth Date'].replace(/\"/g, '')).toISOString().split('T')[0]);
+    assert.strictEqual(actualPet.type.name, expectedPet.Type.replace(/\"/g, ''));
   }
 });
 
@@ -116,9 +116,9 @@ Then('the pet list should contain the following details in alphabetical order of
   for (let i = 0; i < expectedPets.length; i++) {
     const expectedPet = expectedPets[i];
     const actualPet = pets[i];
-    assert.strictEqual(actualPet.name, expectedPet.Name.replace(/"/g, ''));
-    assert.strictEqual(new Date(actualPet.birthDate).toISOString().split('T')[0], new Date(expectedPet['Birth Date'].replace(/"/g, '')).toISOString().split('T')[0]);
-    assert.strictEqual(actualPet.type.name, expectedPet.Type.replace(/"/g, ''));
+    assert.strictEqual(actualPet.name, expectedPet.Name.replace(/\"/g, ''));
+    assert.strictEqual(new Date(actualPet.birthDate).toISOString().split('T')[0], new Date(expectedPet['Birth Date'].replace(/\"/g, '')).toISOString().split('T')[0]);
+    assert.strictEqual(actualPet.type.name, expectedPet.Type.replace(/\"/g, ''));
   }
 });
 
@@ -131,14 +131,17 @@ Then('I should see a message indicating there are no pets for this owner', funct
 });
 
 Then('I should see a pet in the list with the name {string}, birth date {string}, and type {string}', function (petName, birthDate, petType) {
-  const actualPet = pets.find(p => p.name === petName.replace(/"/g, ''));
+  const petNameWithoutQuotes = petName.replace(/\"/g, '');
+  const birthDateWithoutQuotes = birthDate.replace(/\"/g, '');
+  const petTypeWithoutQuotes = petType.replace(/\"/g, '');
+  const actualPet = pets.find(p => p.name === petNameWithoutQuotes);
   assert.ok(actualPet, `Pet with name ${petName} not found`);
-  assert.strictEqual(new Date(actualPet.birthDate).toISOString().split('T')[0], new Date(birthDate.replace(/"/g, '')).toISOString().split('T')[0]);
-  assert.strictEqual(actualPet.type.name, petType.replace(/"/g, ''));
+  assert.strictEqual(new Date(actualPet.birthDate).toISOString().split('T')[0], new Date(birthDateWithoutQuotes).toISOString().split('T')[0]);
+  assert.strictEqual(actualPet.type.name, petTypeWithoutQuotes);
 });
 
 Then('the pets should be listed in the following order:', function (dataTable) {
-  const expectedPets = dataTable.rows().map((row: any) => row[0].replace(/"/g, ''));
+  const expectedPets = dataTable.rows().map((row: any) => row[0].replace(/\"/g, ''));
   const actualPets = pets.map(p => p.name);
   assert.deepStrictEqual(actualPets, expectedPets);
 });
