@@ -4,6 +4,6 @@ module.exports = {
     require: ['features/step_definitions/**/*.ts'],
     format: ['summary', 'progress-bar'],
     publishQuiet: true,
-    timeout: 10000,
+    timeout: 2000,
   },
 };
