@@ -1,9 +1,12 @@
 module.exports = {
   default: {
-    requireModule: ['esbuild-register'],
+    format: [
+      'progress-bar',
+      'html:cucumber-report.html'
+    ],
+    paths: ['features/**/*.feature'],
     require: ['features/step_definitions/**/*.ts'],
-    format: ['summary', 'progress-bar'],
-    publishQuiet: true,
-    timeout: 2000,
-  },
+    requireModule: ['ts-node/register'],
+    stepTimeout: 2 * 1000,
+  }
 };

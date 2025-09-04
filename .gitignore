@@ -42,5 +42,5 @@ next-env.d.ts
 
 **/*.db
 **/*.log
-
+cucumber-report.html
 /generated/prisma
