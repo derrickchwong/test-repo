@@ -7,6 +7,6 @@ module.exports = {
     paths: ['features/**/*.feature'],
     require: ['features/step_definitions/**/*.ts'],
     requireModule: ['ts-node/register'],
-        stepTimeout: 2 * 1000,
+    stepTimeout: 2 * 1000,
   }
 };
