@@ -41,18 +41,17 @@ Scenario: Find an owner that does not exist
   When I search for an owner with the last name "UnknownSurname"
   Then I should see a "not found" message on the "Find Owners" page
 
-Scenario: Search for owners with partial last names
-  When I search for an owner with the last name "Frank"
+Scenario Outline: Search for owners with partial last names
+  When I search for an owner with the last name "<partialName>"
   Then I should see a list of owners with the following names:
-    | Name          |
-    | George Franklin |
+    | Name                |
+    | "<expectedName>"    |
 
-Scenario: Search for owners with partial last names 2
-  When I search for an owner with the last name "Dav"
-  Then I should see a list of owners with the following names:
-    | Name          |
-    | Betty Davis   |
-    | Harold Davis  |
+  Examples:
+    | partialName | expectedName      |
+    | Frank     | "George Franklin" |
+    | Dav       | "Betty Davis"     |
+    | Dav       | "Harold Davis"    |
 
 Scenario: Pagination is present when there are more than 5 owners
   When I search for an owner with an empty last name

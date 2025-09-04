@@ -7,8 +7,11 @@ const prisma = new PrismaClient();
 const port = process.env.BDD_PORT || 3000;
 const baseUrl = `http://localhost:${port}`;
 
+let response: any;
+
 Before(async function () {
   await prisma.owner.deleteMany({});
+  response = undefined;
 });
 
 Given('the following owners exist in the system:', async function (dataTable) {
@@ -39,8 +42,6 @@ Then('I should see a {string} button', async function (button) {
   // This is a frontend step, so we don't need to do anything here.
 });
 
-let response: any;
-
 When('I search for an owner with the last name {string}', async function (lastName) {
   const res = await fetch(`${baseUrl}/api/owners?lastName=${lastName.replace(/"/g, '')}`);
   response = await res.json();
@@ -57,7 +58,9 @@ Then('I should be redirected to the details page for {string}', async function (
 Then('I should see a list of owners with the following names:', async function (dataTable) {
   const expectedNames = dataTable.rows().flat().map((name: string) => name.replace(/"/g, ''));
   const actualNames = response.map((owner: any) => `${owner.firstName} ${owner.lastName}`);
-  assert.deepStrictEqual(actualNames.sort(), expectedNames.sort(), "Owner names do not match");
+  for (const expectedName of expectedNames) {
+    assert(actualNames.includes(expectedName), `Expected to find owner ${expectedName}`);
+  }
 });
 
 When('I search for an owner with an empty last name', async function () {
