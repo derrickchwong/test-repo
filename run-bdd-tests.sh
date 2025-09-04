@@ -18,6 +18,6 @@ done
 echo "Server started on port $PORT"
 
 # Run the BDD tests
-BDD_PORT=$PORT npm run test:bdd
+BDD_PORT=$PORT npm run test:bdd -- "$@"
 
 # Exit trap will kill the server

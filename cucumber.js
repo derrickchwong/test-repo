@@ -1,6 +1,6 @@
 module.exports = {
   default: {
-    requireModule: ['ts-node/register'],
+    requireModule: ['esbuild-register'],
     require: ['features/step_definitions/**/*.ts'],
     format: ['summary', 'progress-bar'],
     publishQuiet: true,

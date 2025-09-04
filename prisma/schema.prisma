@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Vet {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  specialties SpecialtyOnVet[]
+}
+
+model Specialty {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  vets SpecialtyOnVet[]
+}
+
+model SpecialtyOnVet {
+  vet       Vet       @relation(fields: [vetId], references: [id])
+  vetId     Int
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+  specialtyId Int
+
+  @@id([vetId, specialtyId])
+}
